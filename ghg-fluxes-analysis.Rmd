@@ -1,10 +1,11 @@
 
-#+ setup, include=FALSE
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
+```
 
-#' Fit with smoothing spline
+Fit with smoothing spline
 
-#+ test-a, cache=FALSE
+```{r test-a, cache=FALSE}
 library(ggplot2)
 library(ggformula)
 
@@ -24,8 +25,11 @@ newdata$Source<-factor(newdata$Source)
 newdata$Region<-factor(newdata$Region)
 names(newdata)[names(newdata) == "Ageclass"] <- "Ageclass"
 dim(newdata)
+```
 
-#' Removing missing data
+Removing missing data
+
+```{r }
 colSums(is.na(newdata))
 data1 <- na.exclude(newdata)
 dotchart(data1$Rs, group = data1$Severity)
@@ -81,5 +85,8 @@ p2 <- p2 +  scale_shape_manual(name = "labelsev2",
                                breaks = c("High severity", "Low severity", "Unburned"),
                                values = c(1, 1, 16)) 
 
-#+ test-b, fig.width=5, fig.height=5
+```
+```{r test-b, fig.width=5, fig.height=5}
 p2
+```
+

@@ -1,9 +1,20 @@
+---
+title: "Notebook"
+author: "Caius Ribeiro-Kumara"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    fig_caption: true
+    fig_width: 5
+    fig_height: 5
+    df_print: paged
+    number_sections: false
+    toc: false
+---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-```
 
-Fit with smoothing spline
+
 
 ```{r test-a, cache=FALSE}
 library(ggplot2)
@@ -25,11 +36,7 @@ newdata$Source<-factor(newdata$Source)
 newdata$Region<-factor(newdata$Region)
 names(newdata)[names(newdata) == "Ageclass"] <- "Ageclass"
 dim(newdata)
-```
 
-Removing missing data
-
-```{r}
 colSums(is.na(newdata))
 data1 <- na.exclude(newdata)
 dotchart(data1$Rs, group = data1$Severity)
@@ -72,7 +79,7 @@ p2 <- ggplot() +
   theme(legend.position = c(0.155, 0.91),
         legend.text = element_text(size = 10),
         legend.title = element_blank(),
-        legend.key.size = unit(1,"line"),
+        legend.key.size = unit(0.5,"line"),
         axis.title = element_text(size=12),
         axis.text = element_text(size=10)) +
   theme(text = element_text(size = 12, family="mono")) +
@@ -86,7 +93,9 @@ p2 <- p2 +  scale_shape_manual(name = "labelsev2",
                                values = c(1, 1, 16)) 
 
 ```
-```{r test-b, fig.width=5, fig.height=5}
+
+## Fit with smoothing spline
+```{r test-b, fig.width=6, fig.height=5}
 p2
 ```
 

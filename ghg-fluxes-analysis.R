@@ -1,4 +1,10 @@
-#Fit with smoothing spline
+
+#+ setup, include=FALSE
+knitr::opts_chunk$set(collapse = TRUE)
+
+#' Fit with smoothing spline
+
+#+ test-a, cache=FALSE
 library(ggplot2)
 library(ggformula)
 
@@ -18,7 +24,7 @@ newdata$Source<-factor(newdata$Source)
 newdata$Region<-factor(newdata$Region)
 dim(newdata)
 
-#Removing missing data
+#' Removing missing data
 colSums(is.na(newdata))
 data1 <- na.exclude(newdata)
 dotchart(data1$Rs, group = data1$Severity)
@@ -73,4 +79,6 @@ p2 <- p2 + scale_colour_manual(name = "labelsev2",
 p2 <- p2 +  scale_shape_manual(name = "labelsev2",
                                breaks = c("High severity", "Low severity", "Unburned"),
                                values = c(1, 1, 16)) 
+
+#+ test-b, fig.width=5, fig.height=5
 p2

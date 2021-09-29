@@ -1,0 +1,84 @@
+library(ggplot2)
+library(extrafont)
+library(ggformula)
+library(mgcv)
+library(gratia)
+library(metagam)
+
+myFont <- "Segoe UI"
+windowsFonts(mono  = myFont)
+windowsFonts()
+
+data <- read.table(file = "ghg-fluxes.csv",
+                   header = TRUE,
+                   dec = ".",
+                   sep = ",")
+
+myvars <- c("Rs", "Ageclass100","ï..Ageclass", "Severity1",
+            "Severity2", "Source", "Region")
+newdata <- data[myvars]
+
+str(newdata)
+newdata$Severity<-factor(newdata$Severity1)
+newdata$Severity2<-factor(newdata$Severity2)
+newdata$Source<-factor(newdata$Source)
+newdata$Region<-factor(newdata$Region)
+names(newdata)[names(newdata) == "ï..Ageclass"] <- "Ageclass"
+dim(newdata)
+
+#Removing missing data
+colSums(is.na(newdata))
+data1 <- na.exclude(newdata)
+dotchart(data1$Rs, group = data1$Severity)
+data2 <- subset(data1, Rs < 30)
+data2$ID <- seq.int(nrow(data2))
+data3 <- data2[ !(data2$ID %in% c(55, 105, 106, 107)), ]
+
+data3$labelsev2 <- factor(data3$Severity2,labels =
+                            c("High severity", "Low severity", "Unburned"))
+data3$labelsev <- factor(data3$Severity,labels =
+                           c("High severity", "Low severity"))
+
+dataH <- subset(data3, labelsev == "High severity")
+dataL <- subset(data3, labelsev == "Low severity")
+
+p2 <- ggplot() + 
+  geom_jitter(aes(y = Rs,
+                  x = Ageclass100,
+                  col = labelsev2,
+                  shape = labelsev2),
+              data = data3,
+              size = 1) +
+  geom_spline(aes(y = Rs,
+                  x = Ageclass100,
+                  col = labelsev),
+              data = dataH,
+              df = 5.5,
+              alpha = 1,
+              size = 0.5) +
+  geom_spline(aes(y = Rs,
+                  x = Ageclass100,
+                  col = labelsev),
+              data = dataL,
+              df = 4,
+              alpha = 1,
+              size = 0.5) +
+  labs(x = "Time after fire (years)",
+       y = (bquote(''*g ~CO[2]~ m^-2~d^-1*''))) + 
+  theme_bw() + 
+  theme(legend.position = c(0.155, 0.91),
+        legend.text = element_text(size = 7),
+        legend.title = element_blank(),
+        legend.key.size = unit(0.5,"line"),
+        axis.title = element_text(size=10),
+        axis.text = element_text(size=8)) +
+  theme(text = element_text(size = 12, family="mono")) +
+  scale_x_continuous(breaks = seq(0, 100, by = 20))
+
+p2 <- p2 + scale_colour_manual(name = "labelsev2",
+                               breaks = c("High severity", "Low severity", "Unburned"),
+                               values = c("black", "gray", "#085844"))
+p2 <- p2 +  scale_shape_manual(name = "labelsev2",
+                               breaks = c("High severity", "Low severity", "Unburned"),
+                               values = c(1, 1, 16)) 
+p2

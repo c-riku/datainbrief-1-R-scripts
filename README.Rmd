@@ -1,6 +1,0 @@
----
-output: github_document
----
-
-
-[My notebooks](https://c-riku.github.io/datainbrief-binder/)

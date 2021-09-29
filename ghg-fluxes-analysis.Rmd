@@ -1,21 +1,3 @@
----
-title: "Notebook"
-author: "Caius Ribeiro-Kumara"
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    fig_caption: true
-    fig_width: 5
-    fig_height: 5
-    df_print: paged
-    number_sections: false
-    toc: false
----
-
-
-
-
 ```{r test-a, cache=FALSE}
 library(ggplot2)
 library(ggformula)

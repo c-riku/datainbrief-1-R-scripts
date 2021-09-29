@@ -1,6 +1,4 @@
-install.packages("extrafont")
 install.packages("ggformula")
 install.packages("mgcv")
 install.packages("gratia")
-install.packages("metagam")
 install.packages("ggplot2")

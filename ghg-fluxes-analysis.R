@@ -1,20 +1,16 @@
+#Fit with smoothing spline
+
 library(ggplot2)
-library(extrafont)
 library(ggformula)
 library(mgcv)
 library(gratia)
-library(metagam)
-
-myFont <- "Segoe UI"
-windowsFonts(mono  = myFont)
-windowsFonts()
 
 data <- read.table(file = "ghg-fluxes.csv",
                    header = TRUE,
                    dec = ".",
                    sep = ",")
 
-myvars <- c("Rs", "Ageclass100","ï..Ageclass", "Severity1",
+myvars <- c("Rs", "Ageclass100","Ageclass", "Severity1",
             "Severity2", "Source", "Region")
 newdata <- data[myvars]
 
@@ -23,7 +19,6 @@ newdata$Severity<-factor(newdata$Severity1)
 newdata$Severity2<-factor(newdata$Severity2)
 newdata$Source<-factor(newdata$Source)
 newdata$Region<-factor(newdata$Region)
-names(newdata)[names(newdata) == "ï..Ageclass"] <- "Ageclass"
 dim(newdata)
 
 #Removing missing data
@@ -67,11 +62,11 @@ p2 <- ggplot() +
        y = (bquote(''*g ~CO[2]~ m^-2~d^-1*''))) + 
   theme_bw() + 
   theme(legend.position = c(0.155, 0.91),
-        legend.text = element_text(size = 7),
+        legend.text = element_text(size = 10),
         legend.title = element_blank(),
-        legend.key.size = unit(0.5,"line"),
-        axis.title = element_text(size=10),
-        axis.text = element_text(size=8)) +
+        legend.key.size = unit(1,"line"),
+        axis.title = element_text(size=12),
+        axis.text = element_text(size=10)) +
   theme(text = element_text(size = 12, family="mono")) +
   scale_x_continuous(breaks = seq(0, 100, by = 20))
 

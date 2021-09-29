@@ -1,9 +1,6 @@
 #Fit with smoothing spline
-
 library(ggplot2)
 library(ggformula)
-library(mgcv)
-library(gratia)
 
 data <- read.table(file = "ghg-fluxes.csv",
                    header = TRUE,

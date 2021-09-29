@@ -9,7 +9,7 @@ Fit with smoothing spline
 library(ggplot2)
 library(ggformula)
 
-data <- read.table(file = "ghg-fluxes1.csv",
+data <- read.table(file = "ghg-fluxes.csv",
                    header = TRUE,
                    dec = ".",
                    sep = ",")
@@ -29,7 +29,7 @@ dim(newdata)
 
 Removing missing data
 
-```{r }
+```{r}
 colSums(is.na(newdata))
 data1 <- na.exclude(newdata)
 dotchart(data1$Rs, group = data1$Severity)

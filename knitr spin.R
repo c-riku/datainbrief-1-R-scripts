@@ -9,3 +9,8 @@ spin(s, FALSE, format = "Rnw")  # you need to write documentclass after #'
 spin(s, FALSE, format = "Rhtml")
 spin(s, FALSE, format = "Rtex")
 spin(s, FALSE, format = "Rrst")
+
+knitr::spin('ghg-fluxes-analysis.R', knit = FALSE)
+
+
+setwd("D:/Git/datainbrief-binder/")

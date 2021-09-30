@@ -1,0 +1,9 @@
+# About this notebook
+
+This notebook includes R code to reproduce the figures from the publication *How do forest fires affect soil greenhouse gas emissions in upland boreal forests? A review* accessible through [here.](https://sciencedirect.com/science/article/pii/S0013935120302218?via%3Dihub)
+
+Packages used *ggplot2*, *ggformula*, and *extrafont*. See citation at the end of script.
+
+GitHub repository for the publication using JMP scripts: [datainbrief-repo](https://github.com/c-riku/datainbrief-repo)
+
+GitHub repository for this notebook: [datainbrief-binder](https://github.com/c-riku/datainbrief-binder)

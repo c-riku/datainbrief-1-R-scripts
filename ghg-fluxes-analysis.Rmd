@@ -1,40 +1,60 @@
-```{r test-a, cache=FALSE}
+## Figure 2
+
+```{r message = FALSE}
+#Load libraries and pick fonts
 library(ggplot2)
 library(ggformula)
+library("extrafont")
 
+myFont <- "Segoe UI"
+windowsFonts(mono  = myFont)
+
+#Load data
 data <- read.table(file = "ghg-fluxes.csv",
                    header = TRUE,
                    dec = ".",
                    sep = ",")
 
+#Select relevant variables for fig.1 
 myvars <- c("Rs", "Ageclass","Ageclass100", "Severity1",
             "Severity2", "Source", "Region")
 newdata <- data[myvars]
 
-str(newdata)
+#Make sure factors are factors
 newdata$Severity<-factor(newdata$Severity1)
 newdata$Severity2<-factor(newdata$Severity2)
 newdata$Source<-factor(newdata$Source)
 newdata$Region<-factor(newdata$Region)
-names(newdata)[names(newdata) == "Ageclass"] <- "Ageclass"
-dim(newdata)
 
+#Check and exclude missing data
 colSums(is.na(newdata))
 data1 <- na.exclude(newdata)
+
+#Check means that extrapolate 
+##We can see that most mean CO2 fluxes after high (H) and low (L) severity
+##fires are within a similar range, and H includes a few means that extrapolate that.
 dotchart(data1$Rs, group = data1$Severity)
+```
+
+```{r message = FALSE}
+#Omit means that extrapolate (like done the in the paper)
 data2 <- subset(data1, Rs < 30)
 data2$ID <- seq.int(nrow(data2))
 data3 <- data2[ !(data2$ID %in% c(55, 105, 106, 107)), ]
+```
 
+
+```{r message = FALSE}
+#Create labels for graph
 data3$labelsev2 <- factor(data3$Severity2,labels =
                             c("High severity", "Low severity", "Unburned"))
 data3$labelsev <- factor(data3$Severity,labels =
                            c("High severity", "Low severity"))
-
 dataH <- subset(data3, labelsev == "High severity")
 dataL <- subset(data3, labelsev == "Low severity")
 
-p2 <- ggplot() + 
+#Plot the graph as in fig. 1
+p1 <- ggplot() + 
   geom_jitter(aes(y = Rs,
                   x = Ageclass100,
                   col = labelsev2,
@@ -65,19 +85,20 @@ p2 <- ggplot() +
         axis.title = element_text(size=12),
         axis.text = element_text(size=10)) +
   theme(text = element_text(size = 12, family="mono")) +
-  scale_x_continuous(breaks = seq(0, 100, by = 20))
-
-p2 <- p2 + scale_colour_manual(name = "labelsev2",
-                               breaks = c("High severity", "Low severity", "Unburned"),
-                               values = c("black", "gray", "#085844"))
-p2 <- p2 +  scale_shape_manual(name = "labelsev2",
-                               breaks = c("High severity", "Low severity", "Unburned"),
+  scale_x_continuous(breaks = seq(0, 100, by = 20)) +
+  scale_colour_manual(name = "labelsev2",
+                               breaks = c("High severity", "Low severity",
+                                          "Unburned"),
+                               values = c("black", "gray",
+                                          "#085844")) +
+  scale_shape_manual(name = "labelsev2",
+                               breaks = c("High severity", "Low severity",
+                                          "Unburned"),
                                values = c(1, 1, 16)) 
 
 ```
 
-## Fit with smoothing spline
-```{r test-b, fig.width=6, fig.height=5}
-p2
+```{r p1, fig.height = 5, fig.width = 6, fig.cap = "Fit with smoothing spline: mean soil CO<sub>2</sub> efflux over time after fire."}
+p1
 ```
 

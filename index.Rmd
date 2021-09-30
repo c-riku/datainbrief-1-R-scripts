@@ -1,5 +1,5 @@
 ---
-title: "datainbrief-binder"
+title: "R code and figures associated with the datainbrief-repo"
 author: "Caius Ribeiro-Kumara"
 output:
   prettydoc::html_pretty:
@@ -12,6 +12,13 @@ output:
     number_sections: false
     toc: false
 ---
+
+***
+  
+```{r child = "about.Rmd"}
+```
+  
+***
 
 ***
   

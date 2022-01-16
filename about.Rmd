@@ -4,6 +4,6 @@ This notebook includes R code to reproduce the figures from the publication *How
 
 Packages used *ggplot2*, *ggformula*, and *extrafont*. See citation at the end of script.
 
-GitHub repository for the publication using JMP scripts: [datainbrief-repo](https://github.com/c-riku/datainbrief-repo)
+GitHub repository for the publication using JMP scripts: [Datainbrief Repo](https://github.com/c-riku/datainbrief-repo)
 
-GitHub repository for this notebook: [datainbrief-binder](https://github.com/c-riku/datainbrief-binder)
+GitHub repository for this notebook: [Datainbrief 1](https://github.com/c-riku/datainbrief-1-R-scripts)

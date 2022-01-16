@@ -1,3 +1,1 @@
-Please access the notebook through here:
-
-[c-riku.github.io/datainbrief-binder](https://c-riku.github.io/datainbrief-binder/)
+Please access the notebook through [here](https://c-riku.github.io/datainbrief-R-scripts/)
